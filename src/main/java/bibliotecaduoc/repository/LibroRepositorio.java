@@ -7,8 +7,10 @@ import java.util.List;
 @Repository
 public class LibroRepositorio {
 
+    // arreglo que guardara todos los libros
     private List<Libro> listaLibros= new ArrayList<>();
-
+    
+    // metodo que retorna todos los libros
     public List<Libro> obtenerLibros(){
         return listaLibros;
     }

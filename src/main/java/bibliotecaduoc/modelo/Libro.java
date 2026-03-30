@@ -3,9 +3,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@AllArgsConstructor 
-@NoArgsConstructor
+@Data // genera getters setters toString equals hashCode y un constructor vacio
+@AllArgsConstructor // genera constructor con todos los campos
+@NoArgsConstructor // genera constructor sin campos
 
 public class Libro {
     private int id; //parte en id porque es nuestra private key de la base de datos

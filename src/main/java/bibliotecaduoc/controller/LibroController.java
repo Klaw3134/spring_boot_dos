@@ -4,6 +4,7 @@ import bibliotecaduoc.services.LibroService;
 import bibliotecaduoc.dto.*;
 import bibliotecaduoc.mapper.LibroMapper;
 import bibliotecaduoc.exception.*;
+import bibliotecaduoc.config.*;
 
 //import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,8 +20,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
+import org.springframework.web.reactive.function.client.WebClient;
 
 /**
  * Controller REST modernizado para Java 21 LTS y Spring Boot 3.3+ 100% REST compliant
@@ -30,11 +33,14 @@ import jakarta.validation.Valid;
 public class LibroController {
 
         private final LibroService libroService;
+        private final WebClient pokeApiWebClient;
 
         // Constructor injection (mejor práctica 2026)
-        public LibroController(LibroService libroService) {
+        public LibroController(LibroService libroService, WebClient pokeApiWebClient) {
                 this.libroService = libroService;
+                this.pokeApiWebClient = pokeApiWebClient;
         }
+
 
         @GetMapping
         public ResponseEntity<List<Libro>> listarLibros() {
@@ -86,6 +92,18 @@ public class LibroController {
         @GetMapping("/editorial/{editorial}")
         public List<Libro> getPorEditorial(@PathVariable String editorial){
                 return libroService.buscarPorEditorial(editorial);
+        }
+        
+        @GetMapping("/pokeapi")
+        public ResponseEntity<PokemonResponse> consultarPokemon(
+                //parametro de consulta RequestParam //parametro de ruta PathVariable
+        @RequestParam(name = "nombre") String nombre) {
+ 
+ 
+        PokemonResponse pokemon = pokeApiWebClient.get()
+        .uri("/pokemon-species/{nombre}", nombre) // Endpoint más simple
+        .retrieve().bodyToMono(PokemonResponse.class).block();
+        return ResponseEntity.ok(pokemon);
         }
         
 }

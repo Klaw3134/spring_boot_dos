@@ -49,7 +49,9 @@ public class LibroService {
         return libroRepositorio.totalLibros();
     }
 
-
+    public List <Libro> buscarPorEditorial (String editorial){
+        return libroRepositorio.selectPorEditorial(editorial);
+    }
 
 
 

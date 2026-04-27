@@ -1,13 +1,20 @@
 package bibliotecaduoc.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import java.util.List;
 import org.springframework.stereotype.Repository;
 import bibliotecaduoc.modelo.Libro;
 
 @Repository
 public interface LibroRepositorio extends JpaRepository<Libro, Integer> {
 
-
+        // Consulta nativa simple
+    @Query(value = "SELECT * FROM libros2 WHERE editorial = :editorial", nativeQuery = true)
+        List<Libro> selectPorEditorial (@Param("editorial") String editorial);
+ 
+ 
+   
     // Metodo que retorna todoa los libros
     // public List<Libro> obtenerLibros() {
     // return listaLibros;

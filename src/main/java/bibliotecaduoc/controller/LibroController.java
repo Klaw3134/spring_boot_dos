@@ -5,13 +5,13 @@ import bibliotecaduoc.dto.*;
 import bibliotecaduoc.mapper.LibroMapper;
 import bibliotecaduoc.exception.*;
 
-import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+//import org.springframework.validation.BindingResult;
+//import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+//import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,7 +26,7 @@ import jakarta.validation.Valid;
  * Controller REST modernizado para Java 21 LTS y Spring Boot 3.3+ 100% REST compliant
  */
 @RestController
-@RequestMapping("/api/v1/libros")
+@RequestMapping("/api/v1/libros2")
 public class LibroController {
 
         private final LibroService libroService;
@@ -82,4 +82,10 @@ public class LibroController {
                 int total = libroService.totalLibrosV2();
                 return ResponseEntity.ok(total);
         }
+
+        @GetMapping("/editorial/{editorial}")
+        public List<Libro> getPorEditorial(@PathVariable String editorial){
+                return libroService.buscarPorEditorial(editorial);
+        }
+        
 }

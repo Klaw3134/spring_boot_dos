@@ -1,7 +1,10 @@
 package bibliotecaduoc.controller;
 import bibliotecaduoc.modelo.Libro;
 import bibliotecaduoc.services.LibroService;
-import bibliotecaduoc.dto.*;
+import bibliotecaduoc.dto.LibroNoEncontrado;
+import bibliotecaduoc.dto.CreateLibroRequest;
+import bibliotecaduoc.dto.PokemonResponse;
+import bibliotecaduoc.dto.UpdateLibroRequest;
 import bibliotecaduoc.mapper.LibroMapper;
 import bibliotecaduoc.exception.*;
 import bibliotecaduoc.config.*;
@@ -58,12 +61,14 @@ public class LibroController {
         }
 
         @GetMapping("{id}")
-        public ResponseEntity<Libro> buscarLibro(@PathVariable int id) {
+        public ResponseEntity<?> buscarLibro(@PathVariable int id) {
                 Libro libro = libroService.getLibroId(id);
 
                 if (libro == null) {
 
-                        throw new ResourceNotFoundException("Libro no encontrado para id: " + id);
+                  LibroNoEncontrado libroNoEncontrado = new LibroNoEncontrado(
+                        "error12", "libro no encontrado");
+                        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(libroNoEncontrado);
                 }
 
                 return ResponseEntity.ok(libro);
@@ -106,4 +111,5 @@ public class LibroController {
         return ResponseEntity.ok(pokemon);
         }
         
+
 }

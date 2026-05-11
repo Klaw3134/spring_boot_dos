@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
  * GlobalExceptionHandler modernizado con Problem Details API (RFC 7807) Estándar Spring Boot 3.x /
  * 2026 para APIs REST
  */
-@RestControllerAdvice
+@RestControllerAdvice // yo voy a controlar el manejo de excepciones.
 public class GlobalExceptionHandler {
 
     public GlobalExceptionHandler() {
